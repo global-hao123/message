@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Demo</title>
+<script src="../src/message.js"></script>
+
+<link rel="stylesheet" href="http://view.gitlab.pro/common-ui/css-layout/raw/master/demo/css/base.css">
+<link rel="stylesheet" href="http://view.gitlab.pro/common-ui/css-layout/raw/master/demo/css/layout.css">
+<link rel="stylesheet" href="http://view.gitlab.pro/common-ui/ui/raw/master/src/ui.css">
+<link rel="stylesheet" href="css/demo.css">
+</head>
+<body>
+<div class="nav">
+    <span class="logo">Hao123.message<i class="wifi"></i></span>
+</div>
+
+<div class="l-wrap">
+    <!-- <h1>Hao123.message (iframe 跨域通信 SDK)</h1> -->
+    <h2 class="s-pvm">CASE 1 Same-page to Same-page</h2>
+
+    <div class="l-g">
+        <div class="l-g5">
+            <div class="mod">
+                <div class="mod_hd s-phm">module.mod1.test</div>
+                <div class="mod_bd s-pam">
+                    <form id="mod1" action="/">
+                        <div class="btn l-fr s-pls">
+                            <button class="ui-btn" hidefocus="true">send</button>
+                        </div>
+                        <div class="l-ff input">
+                            <b><input value="module.mod1.test" /></b>
+                        </div>
+                    </form>
+                    <pre class="result s-mtm s-pam">
+                        <span>wait...</span>
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="l-g2">
+            <div class="mod-space">
+                <strong>&lt;</strong><label>...</label><strong>&gt;</strong>
+            </div>
+        </div>
+        <div class="l-g5">
+            <div class="mod">
+                <div class="mod_hd s-phm">module.mod2.test</div>
+                <div class="mod_bd s-pam">
+                    <form id="mod2" action="/">
+                        <div class="btn l-fr s-pls">
+                            <button class="ui-btn" hidefocus="true">send</button>
+                        </div>
+                        <div class="l-ff input">
+                            <b><input value="module.mod2.test" /></b>
+                        </div>
+                    </form>
+                    <pre class="result s-mtm s-pam">
+                        <span>wait...</span>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="s-pvm">CASE 2 Same-page to Cross-domain</h2>
+
+    <div class="l-g">
+        <div class="l-g5">
+            <div class="mod">
+                <div class="mod_hd s-phm">mod3.page.test</div>
+                <div class="mod_bd s-pam">
+                    <form id="mod3" action="/">
+                        <div class="btn l-fr s-pls">
+                            <button class="ui-btn" hidefocus="true">send</button>
+                        </div>
+                        <div class="l-ff input">
+                            <b><input value="mod3.page.test" /></b>
+                        </div>
+                    </form>
+                    <pre class="result s-mtm s-pam">
+                        <span>wait...</span>
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="l-g2">
+            <div class="mod-space">
+                <strong>&lt;</strong><label>...</label><strong>&gt;</strong>
+            </div>
+        </div>
+        <div class="l-g5">
+            <iframe id="mod4" src="http://g.com/demo/mod4.html" frameborder="0" width="100%"></iframe>
+        </div>
+    </div>
+
+    <h2 class="s-pvm">CASE 3 Cross-domain to Cross-domain</h2>
+
+    <div class="l-g s-pll">
+        <div class="l-g3 s-mll">
+            <iframe id="mod5" src="mod5.html" frameborder="0" width="100%"></iframe>
+        </div>
+        <div class="l-g1">
+            <div class="mod-space">
+                <strong>&lt;</strong><label>...</label><strong>&gt;</strong>
+            </div>
+        </div>
+        <div class="l-g3">
+            <iframe id="mod6" src="http://g.com/demo/mod6.html" frameborder="0" width="100%"></iframe>
+        </div>
+        <div class="l-g1">
+            <div class="mod-space">
+                <strong>&lt;</strong><label>...</label><strong>&gt;</strong>
+            </div>
+        </div>
+        <div class="l-g3">
+            <iframe id="mod7" src="http://g.com/demo/mod7.html" frameborder="0" width="100%"></iframe>
+        </div>
+    </div>
+
+    <h2 class="s-pvm">CASE 4 New-window to Opener</h2>
+
+    <div class="l-g">
+        <div class="l-g5">
+            <div class="mod">
+                <div class="mod_hd s-phm">module.mod8.test</div>
+                <div class="mod_bd s-pam">
+                    <form id="mod8" action="/">
+                        <div class="btn l-fr s-pls">
+                            <button disabled class="ui-btn ui-btn--gray" hidefocus="true">send</button>
+                        </div>
+                        <div class="l-ff input">
+                            <b><input class="gray" disabled value="Not be sent to new window" /></b>
+                        </div>
+                    </form>
+                    <pre class="result s-mtm s-pam">
+                        <span>wait...</span>
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="l-g2">
+            <div class="mod-space">
+                <strong>&lt;</strong><label>...</label>
+            </div>
+        </div>
+        <div class="l-g5">
+            <div class="mod mod-out">
+                <div class="mod_hd s-phm">iframe.mod9.test</div>
+                <div class="mod_bd s-pam">
+                    <a id="mod9" class="ui-btn ui-btn-l ui-btn--blue" href="http://g.com/demo/open.html" target="_blank">open a new window</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+var message = typeof require === "function"
+? require('../src/message.js')
+: Hao123.message;
+
+
+// ----------CASE 1-----------
+message.on("module.mod1.test", function(data) {
+    document.getElementById("mod2").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+});
+
+document.getElementById("mod1").onsubmit = function() {
+    message.send("module.mod1.test", this.getElementsByTagName("input")[0].value);
+    return false;
+}
+
+message.on("module.mod2.test", function(data) {
+    document.getElementById("mod1").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+});
+
+document.getElementById("mod2").onsubmit = function() {
+    message.send("module.mod2.test", this.getElementsByTagName("input")[0].value);
+    return false;
+}
+
+
+// ---------------CASE 2---------------
+message.on("iframe.mod4.test", function(data) {
+    document.getElementById("mod3").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+});
+
+document.getElementById("mod3").onsubmit = function() {
+    message.send("iframe.mod3.test", this.getElementsByTagName("input")[0].value, document.getElementById("mod4").contentWindow);
+    return false;
+}
+
+// --------------CASE 3-------------------
+// proxy mod7
+message.on("iframe.mod7.test", function(data) {
+    // message.send("iframe.mod7.test", data, document.getElementById("mod6").contentWindow);
+
+    for(var iframes = window.frames, i = 0, ifr; ifr = iframes[i++];)
+    message.send("iframe.mod7.test", data, ifr);
+});
+
+// --------------CASE 4-------------------
+
+var checkAlive,
+    waitClose;
+message
+    .on("iframe.mod9.opened", function(data) {
+        document.getElementById("mod9").innerHTML = "Alread opened";
+        document.getElementById("mod9").className = "ui-btn ui-btn-l";
+/*        checkAlive = setInterval(function() {
+            if(waitClose) return;
+            waitClose = setTimeout(function() {
+                clearInterval(checkAlive);
+                document.getElementById("mod9").innerHTML = "open a new window";
+                document.getElementById("mod9").className = "ui-btn ui-btn-l ui-btn--blue";
+            }, 500);
+        }, 200);*/
+    })
+    .on("iframe.mod9.alive", function(data) {
+        clearTimeout(waitClose);
+        waitClose = null;
+    })
+    .on("iframe.mod9.test", function(data) {
+        document.getElementById("mod8").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+    });
+</script>
+</html>

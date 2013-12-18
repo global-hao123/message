@@ -1,0 +1,42 @@
+{
+  "name": "boilerplate-plugin",
+  "description": "plugin description",
+  "version": "0.1.0",
+  "author": "yuji",
+  "repository": {
+    "type": "http",
+    "url": "http://gitlab.pro/common-ui/boilerplate.git"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "load-grunt-tasks": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-connect": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-htmlmin": "*",
+    "grunt-contrib-imagemin": "*",
+    "grunt-contrib-compress": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-open": "*",
+    "grunt-svgmin": "*",
+    "grunt-contrib-stylus": "*",
+    "grunt-jsdoc-plugin": "*",
+    "grunt-concurrent": "*",
+    "grunt-shell": "*"
+  },
+  "scripts": {
+    "release": "npm run hint & npm run test",
+    "hint": "",
+    "build": "grunt",
+    "test": "tap test/*.js"
+  }
+}

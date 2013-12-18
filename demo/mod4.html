@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Demo</title>
+<script src="../src/message.js"></script>
+
+<link rel="stylesheet" href="http://view.gitlab.pro/common-ui/css-layout/raw/master/demo/css/base.css">
+<link rel="stylesheet" href="http://view.gitlab.pro/common-ui/css-layout/raw/master/demo/css/layout.css">
+<link rel="stylesheet" href="http://view.gitlab.pro/common-ui/ui/raw/master/src/ui.css">
+<link rel="stylesheet" href="css/demo.css">
+</head>
+<body>
+
+<div class="mod mod-out">
+    <div class="mod_hd s-phm">iframe.mod4.test</div>
+    <div class="mod_bd s-pam">
+        <p class="s-mbs">from: <span id="from" class="gray"></span></p>
+        <form id="mod4" action="/">
+            <div class="btn l-fr s-pls">
+                <button class="ui-btn" hidefocus="true">send</button>
+            </div>
+            <div class="l-ff input">
+                <b><input value="mod4.iframe.test" /></b>
+            </div>
+        </form>
+        <pre class="result s-mtm s-pam">
+            <span>wait...</span>
+        </pre>
+    </div>
+</div>
+
+</body>
+<script>
+var message = typeof require === "function"
+? require('../src/message.js')
+: Hao123.message;
+
+message.on("iframe.mod3.test", function(data) {
+    document.getElementById("mod4").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+});
+
+document.getElementById("mod4").onsubmit = function() {
+    message.send("iframe.mod4.test", this.getElementsByTagName("input")[0].value);
+    return false;
+}
+
+document.getElementById("from").innerHTML = location.href;
+</script>
+</html>

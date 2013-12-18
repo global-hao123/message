@@ -1,0 +1,70 @@
+html, body{ color: #3e3e3e; font: 12px/1.5 arial, \5b8b\4f53;}
+h2{ /*border-bottom: 1px solid #333;*/}
+
+a{ text-decoration: none;}
+
+body{
+  margin:0;
+  background:#f5f5f5;
+}
+
+.logo{ position: relative;}
+
+.gray{ color: #999;}
+
+.nav{
+  background:#01BF87;
+  height:50px;
+  line-height:50px;
+  text-align: center;
+  border-bottom: 1px solid #fff;
+}
+
+.logo{
+  font-family: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-size:27px;
+  /*font-weight: bold;*/
+  color: #fff;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.2);
+}
+
+.wifi {
+    padding: 20px;
+    /*color: #8fc5ff;*/
+    -webkit-transform:rotate(30deg) scale(.15);
+    -moz-transform:rotate(30deg) scale(.15);
+    transform:rotate(30deg) scale(.15);
+    /*color: rgba(255,255,255,.7);*/
+}
+
+.wifi, .wifi:before {
+    display: inline-block;
+    border: 60px double transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+}
+
+.wifi:before {
+    content: '';
+    width: 0; height: 0;
+}
+
+.logo .wifi{ position: absolute; margin: -100px; right: -31px; top: -29px;}
+
+.mod{ overflow: hidden; border: 1px dotted #aaa;}
+.mod_hd{ background: #eee; height: 21px; line-height: 21px;}
+.mod_bd{ }
+.mod_bd .input{ overflow: hidden; border-right: 1px solid #ccc;}
+.mod_bd .input b{ display: block; zoom:1;}
+.mod_bd .input input{ height: 23px; line-height: 23px; width:100%;
+    vertical-align: middle; border: 1px solid #ccc; font-size: 12px;
+    padding-left: 5px;
+}
+.mod_bd .btn{ }
+
+.mod_bd .result{ background: #fff; border: 1px solid #eee;}
+.mod_bd .result span{ color: #999;}
+
+.mod-out{ border-style: solid;}
+.mod-space{ text-align: center; font-size: 40px; color: #00ab72;}
+.mod-space label{ position: relative; top: -12px;}
