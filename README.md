@@ -140,8 +140,6 @@ message.send("iframe.mod3.test", this.getElementsByTagName("input")[0].value, do
 
 - iframe <-> iframe
 
-* 
-
 ```javascript
 // 方式1, iframe 相互已知, 指定对象句柄
 message
