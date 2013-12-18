@@ -118,21 +118,21 @@ Hao123.message.send("iframe.yahoo.music-control", data)
 
 - module <-> module
 
-```
+```javascript
 // send to mod1
 message.send("module.mod1.test", this.getElementsByTagName("input")[0].value);
 ```
 
 - iframe -> host
 
-```
+```javascript
 // send to parent
 message.send("iframe.mod4.test", this.getElementsByTagName("input")[0].value);
 ```
 
 - host -> iframe
 
-```
+```javascript
 // send to mod4
 message.send("iframe.mod3.test", this.getElementsByTagName("input")[0].value, document.getElementById("mod4").contentWindow);
     return false;
@@ -140,17 +140,15 @@ message.send("iframe.mod3.test", this.getElementsByTagName("input")[0].value, do
 
 - iframe <-> iframe
 
-    * 方式1, iframe 相互已知, 指定对象句柄
+* 
 
-```
+```javascript
+// 方式1, iframe 相互已知, 指定对象句柄
 message
         .send("iframe.mod6.test", this.getElementsByTagName("input")[0].value, window.parent.frames[1])
         .send("iframe.mod6.test", this.getElementsByTagName("input")[0].value, window.parent.frames[3]);
-```
 
-    * 方式2, iframe 之间不透明, 通过 parent 代理
-
-```
+// 方式2, iframe 之间不透明, 通过 parent 代理
 // iframe
 message.send("iframe.mod7.test", this.getElementsByTagName("input")[0].value);
 
