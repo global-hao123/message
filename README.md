@@ -109,10 +109,10 @@ Hao123.message.send("iframe.yahoo.music-control", data)
 
 |Type| Allow Cross-domian| Two-way | Support Data-type | Description|
 |----|----|----|----|----|
-|module|× |√ | Any |页内各模块通信|
+|module|√ |√ | Any |页内各模块通信|
 |iframe|√ |√ | `String` |宿主到iframe 或 iframe 之间通信|
 |open|√|× | Any |打开新窗口到原页面的单向通信|
-|page| √| × (较新的 webkit 可以由 globalStorage 实现跨域)| `String` | 同域下多页面之间的通信|
+|page|× (较新的 webkit 可以由 globalStorage 实现跨域)|√| `String` | 同域下多页面之间的通信|
 
 ### More Case
 
