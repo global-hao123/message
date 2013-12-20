@@ -45,7 +45,7 @@ gzip: 1.3K
    * [page]
 
 -IE10-11
-   * [opener](不允许跨域)
+   * [opener]不允许跨域
 
 - 其他
    * 除了 IE6-7, 跨域的 iframe 之间通信需要通过父页面代理传递 @see mod6<->mod7
