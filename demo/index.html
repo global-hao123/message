@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Demo</title>
-<script src="../dist/message.js"></script>
+<script src="../src/message.js"></script>
 
 <link rel="stylesheet" href="http://view.gitlab.pro/common-ui/css-layout/raw/master/demo/css/base.css">
 <link rel="stylesheet" href="http://view.gitlab.pro/common-ui/css-layout/raw/master/demo/css/layout.css">
@@ -98,7 +98,7 @@
 
     <div class="l-g s-pll">
         <div class="l-g3 s-mll">
-            <iframe id="mod5" src="mod5.html" frameborder="0" width="100%"></iframe>
+            <iframe id="mod5" src="http://demo.i18n.pro/message/demo/mod5.html" frameborder="0" width="100%"></iframe>
         </div>
         <div class="l-g1">
             <div class="mod-space">
@@ -260,12 +260,29 @@ document.getElementById("mod3").onsubmit = function() {
 // IE6/7 之外跨域的两个 iframe 通信需要通过 parent 代理
 
 // 接收到跨域的 iframe 消息后再广播出去
-"postMessage" in window && message.on("iframe.mod7.test", function(data) {
-    message.send("iframe.mod7.test", data, document.getElementById("mod6").contentWindow);
 
-    // for(var iframes = window.frames, i = 0, ifr; ifr = iframes[i++];)
-    // message.send("iframe.mod7.test", data, ifr);
-});
+if("postMessage" in window) {
+    message
+        .on("iframe.mod7.test", function(data) {
+            message.send("iframe.mod7.test", data, document.getElementById("mod6").contentWindow);
+
+            // for(var iframes = window.frames, i = 0, ifr; ifr = iframes[i++];)
+            // message.send("iframe.mod7.test", data, ifr);
+        })
+        .on("iframe.mod6.test", function(data) {
+            message
+                .send("iframe.mod6.test", data, document.getElementById("mod7").contentWindow)
+                .send("iframe.mod6.test", data, document.getElementById("mod5").contentWindow);
+        })
+        .on("iframe.mod5.test", function(data) {
+            message.send("iframe.mod5.test", data, document.getElementById("mod6").contentWindow);
+
+            // for(var iframes = window.frames, i = 0, ifr; ifr = iframes[i++];)
+            // message.send("iframe.mod7.test", data, ifr);
+        });
+}
+
+
 
 // --------------CASE 4-------------------
 var mod9Handle;
