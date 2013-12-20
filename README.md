@@ -26,13 +26,24 @@ All in one 前端通信框架.
 
 ### 浏览器兼容:
 
-- IE6-11
-- Chrome / Opera
-- Firefox
+- Part-function support: IE6-11, @see: TODO
+- Full-function support: Chrome / Opera / Safari / Firefox
 
 ### TODO
 
-- more test.
+- IE6-7: 
+   * [opener]只能单向, 不允许跨域
+   * [page]
+
+- IE8-10:
+   * [opener]
+   * [page]
+
+-IE10-11
+   * [opener](不允许跨域)
+
+- 其他
+   * 除了 IE6-7, 跨域的 iframe 之间通信需要通过父页面代理传递 @see mod6<->mod7
 
 ## Usage
 
@@ -110,9 +121,9 @@ Hao123.message.send("iframe.yahoo.music-control", data)
 |Type| Allow Cross-domian| Two-way | Support Data-type | Description|
 |----|----|----|----|----|
 |module|× |√ | Any |页内各模块通信|
-|iframe|√ |√ | `String` |宿主到iframe 或 iframe 之间通信|
+|iframe|√ |√ | Any |宿主到iframe 或 iframe 之间通信|
 |open|√|× | Any |打开新窗口到原页面的单向通信|
-|page| √| × (较新的 webkit 可以由 globalStorage 实现跨域)| `String` | 同域下多页面之间的通信|
+|page| √| × (Firefox 2-13 可以由 globalStorage 实现跨域)| `String` | 同域下多页面之间的通信|
 
 ### More Case
 
@@ -147,6 +158,7 @@ message
         .send("iframe.mod6.test", this.getElementsByTagName("input")[0].value, window.parent.frames[3]);
 
 // 方式2, iframe 之间不透明, 通过 parent 代理
+// 注意: 除了 IE6-7, 跨域的 iframe 之间通信需要通过父页面代理传递
 // iframe
 message.send("iframe.mod7.test", this.getElementsByTagName("input")[0].value);
 
@@ -160,4 +172,62 @@ message.on("iframe.mod7.test", function(data) {
     for(var iframes = window.frames, i = 0, ifr; ifr = iframes[i++];)
     message.send("iframe.mod7.test", data, ifr);
 });
+```
+
+- module <-> new-window
+
+```javascript
+
+//host
+// send to mod4
+message.send("iframe.mod3.test", this.getElementsByTagName("input")[0].value, document.getElementById("mod4").contentWindow);
+    return false;
+
+message
+    .on("opener.mod9.opened", function(data) {
+        document.getElementById("mod9").innerHTML = "Alread opened";
+        document.getElementById("mod9").className = "ui-btn ui-btn-l";
+    })
+    .on("opener.mod9.test", function(data) {
+        document.getElementById("mod8").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+    });
+
+// mod9.html
+document.getElementById("mod9").onsubmit = function() {
+    message.send("opener.mod9.test", this.getElementsByTagName("input")[0].value, window.opener);
+    return false;
+}
+```
+
+- page <-> page
+
+```javascript
+
+// host
+message
+    .on("page.mod11.opened", function(data) {
+        document.getElementById("mod11").innerHTML = "Alread opened";
+        document.getElementById("mod11").className = "ui-btn ui-btn-l";
+    })
+    .on("page.mod11.test", function(data) {
+        document.getElementById("mod10").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+    })
+    .on("page.mod12.opened", function(data) {
+        document.getElementById("mod12").innerHTML = "Alread opened";
+        document.getElementById("mod12").className = "ui-btn ui-btn-l";
+    })
+    .on("page.mod12.test", function(data) {
+        document.getElementById("mod10").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+    });
+
+document.getElementById("mod10").onsubmit = function() {
+    message.send("page.mod10.test", this.getElementsByTagName("input")[0].value);
+    return false;
+}
+
+// page1
+document.getElementById("mod11").onsubmit = function() {
+    message.send("page.mod11.test", this.getElementsByTagName("input")[0].value);
+    return false;
+}
 ```

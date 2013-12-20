@@ -13,15 +13,14 @@
 <body>
 
 <div class="mod mod-out">
-    <div class="mod_hd s-phm">iframe.mod7.test</div>
+    <div class="mod_hd s-phm">page.mod11.test</div>
     <div class="mod_bd s-pam">
-        <p class="s-mbs">from: <span id="from" class="gray"></span></p>
-        <form id="mod7" action="/">
+        <form id="mod11" action="/">
             <div class="btn l-fr s-pls">
                 <button type="submit" class="ui-btn" hidefocus="true">send</button>
             </div>
             <div class="l-ff input">
-                <b><input value="mod7.iframe.test" /></b>
+                <b><input value="page.mod11.test" /></b>
             </div>
         </form>
         <pre class="result s-mtm s-pam">
@@ -36,15 +35,25 @@ var message = typeof require === "function"
 ? require('../src/message.js')
 : Hao123.message;
 
-message.on("iframe.mod6.test", function(data) {
-    document.getElementById("mod7").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
-});
+message
+    .on("page.mod10.test", function(data) {
+        document.getElementById("mod11").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+    })
+    .on("page.mod12.test", function(data) {
+        document.getElementById("mod11").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+    });
 
-document.getElementById("mod7").onsubmit = function() {
-    message.send("iframe.mod7.test", this.getElementsByTagName("input")[0].value, window.parent.frames[2])
+message.send("page.mod11.opened", "1");
+
+document.getElementById("mod11").onsubmit = function() {
+    message.send("page.mod11.test", this.getElementsByTagName("input")[0].value);
     return false;
 }
 
-document.getElementById("from").innerHTML = location.href;
+// send heartBeat
+// setInterval(function() {
+//     message.send("iframe.mod9.alive", "1", window.opener);
+// }, 100)
+
 </script>
 </html>

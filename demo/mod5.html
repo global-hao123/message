@@ -18,7 +18,7 @@
         <p class="s-mbs">from: <span id="from" class="gray"></span></p>
         <form id="mod5" action="/">
             <div class="btn l-fr s-pls">
-                <button class="ui-btn" hidefocus="true">send</button>
+                <button type="submit" class="ui-btn" hidefocus="true">send</button>
             </div>
             <div class="l-ff input">
                 <b><input value="mod5.iframe.test" /></b>
@@ -41,7 +41,7 @@ message.on("iframe.mod6.test", function(data) {
 });
 
 document.getElementById("mod5").onsubmit = function() {
-    message.send("iframe.mod5.test", this.getElementsByTagName("input")[0].value, window.parent.frames[2]);
+    message.send("iframe.mod5.test", this.getElementsByTagName("input")[0].value);
     return false;
 }
 

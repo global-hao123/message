@@ -26,7 +26,7 @@
                 <div class="mod_bd s-pam">
                     <form id="mod1" action="/">
                         <div class="btn l-fr s-pls">
-                            <button class="ui-btn" hidefocus="true">send</button>
+                            <button type="submit" class="ui-btn" hidefocus="true">send</button>
                         </div>
                         <div class="l-ff input">
                             <b><input value="module.mod1.test" /></b>
@@ -49,7 +49,7 @@
                 <div class="mod_bd s-pam">
                     <form id="mod2" action="/">
                         <div class="btn l-fr s-pls">
-                            <button class="ui-btn" hidefocus="true">send</button>
+                            <button type="submit" class="ui-btn" hidefocus="true">send</button>
                         </div>
                         <div class="l-ff input">
                             <b><input value="module.mod2.test" /></b>
@@ -72,7 +72,7 @@
                 <div class="mod_bd s-pam">
                     <form id="mod3" action="/">
                         <div class="btn l-fr s-pls">
-                            <button class="ui-btn" hidefocus="true">send</button>
+                            <button type="submit" class="ui-btn" hidefocus="true">send</button>
                         </div>
                         <div class="l-ff input">
                             <b><input value="mod3.page.test" /></b>
@@ -127,10 +127,10 @@
                 <div class="mod_bd s-pam">
                     <form id="mod8" action="/">
                         <div class="btn l-fr s-pls">
-                            <button disabled class="ui-btn ui-btn--gray" hidefocus="true">send</button>
+                            <button type="submit" disabled class="ui-btn ui-btn--gray" hidefocus="true">send</button>
                         </div>
                         <div class="l-ff input">
-                            <b><input class="gray" disabled value="Not be sent to new window" /></b>
+                            <b><input value="module.mod8.test" /></b>
                         </div>
                     </form>
                     <pre class="result s-mtm s-pam">
@@ -141,27 +141,85 @@
         </div>
         <div class="l-g2">
             <div class="mod-space">
-                <strong>&lt;</strong><label>...</label>
+                <strong>&lt;</strong><label>...</label><strong>&gt;</strong>
             </div>
         </div>
         <div class="l-g5">
             <div class="mod mod-out">
-                <div class="mod_hd s-phm">iframe.mod9.test</div>
+                <div class="mod_hd s-phm">opener.mod9.test</div>
                 <div class="mod_bd s-pam">
-                    <a id="mod9" class="ui-btn ui-btn-l ui-btn--blue" href="http://g.com/demo/open.html" target="_blank">open a new window</a>
+                    <a id="mod9" class="ui-btn ui-btn-l ui-btn--blue" href="#"  target="_blank">open a new window</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="s-pvm">CASE 5 pages of same-domain</h2>
+
+    <div class="l-g s-pll">
+        <div class="l-g3 s-mll">
+            <div class="mod">
+                <div class="mod_hd s-phm">page.mod10.test</div>
+                <div class="mod_bd s-pam">
+                    <form id="mod10" action="/">
+                        <div class="btn l-fr s-pls">
+                            <button type="submit" class="ui-btn" hidefocus="true">send</button>
+                        </div>
+                        <div class="l-ff input">
+                            <b><input class="gray" value="page.mod10.test" /></b>
+                        </div>
+                    </form>
+                    <pre class="result s-mtm s-pam">
+                        <span>wait...</span>
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="l-g1">
+            <div class="mod-space">
+                <strong>&lt;</strong><label>...</label><strong>&gt;</strong>
+            </div>
+        </div>
+        <div class="l-g3">
+            <div class="mod mod-out">
+                <div class="mod_hd s-phm">page.mod11.test</div>
+                <div class="mod_bd s-pam">
+                    <a id="mod11" class="ui-btn ui-btn-l ui-btn--blue" href="page1.html" target="_blank">open a new window</a>
+                </div>
+            </div>
+        </div>
+        <div class="l-g1">
+            <div class="mod-space">
+                <strong>&lt;</strong><label>...</label><strong>&gt;</strong>
+            </div>
+        </div>
+        <div class="l-g3">
+            <div class="mod mod-out">
+                <div class="mod_hd s-phm">page.mod12.test</div>
+                <div class="mod_bd s-pam">
+                    <a id="mod12" class="ui-btn ui-btn-l ui-btn--blue" href="page2.html" target="_blank">open a new window</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 </body>
 <script>
 var message = typeof require === "function"
 ? require('../src/message.js')
 : Hao123.message;
+var message = Hao123.message;
 
+var test1 = function(data) {
+    // console.log(data + "xx");
+}, test2 = function(data) {
+    // console.log(data);
+};
+
+message.on("module.m1", test1);
+message.on("module.m1", test2);
+message.send("module.m1", "123")
+message.off("module.m1")
 
 // ----------CASE 1-----------
 message.on("module.mod1.test", function(data) {
@@ -182,9 +240,9 @@ document.getElementById("mod2").onsubmit = function() {
     return false;
 }
 
-
 // ---------------CASE 2---------------
 message.on("iframe.mod4.test", function(data) {
+    // console.log(data)
     document.getElementById("mod3").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
 });
 
@@ -195,36 +253,77 @@ document.getElementById("mod3").onsubmit = function() {
 
 // --------------CASE 3-------------------
 // proxy mod7
-message.on("iframe.mod7.test", function(data) {
-    // message.send("iframe.mod7.test", data, document.getElementById("mod6").contentWindow);
+// IE6/7 之外跨域的两个 iframe 通信需要通过 parent 代理
 
-    for(var iframes = window.frames, i = 0, ifr; ifr = iframes[i++];)
-    message.send("iframe.mod7.test", data, ifr);
+// --------------CASE 3-------------------
+// proxy mod7
+// IE6/7 之外跨域的两个 iframe 通信需要通过 parent 代理
+
+// 接收到跨域的 iframe 消息后再广播出去
+"postMessage" in window && message.on("iframe.mod7.test", function(data) {
+    message.send("iframe.mod7.test", data, document.getElementById("mod6").contentWindow);
+
+    // for(var iframes = window.frames, i = 0, ifr; ifr = iframes[i++];)
+    // message.send("iframe.mod7.test", data, ifr);
 });
 
 // --------------CASE 4-------------------
+var mod9Handle;
 
-var checkAlive,
-    waitClose;
+document.getElementById("mod9").onclick = function() {
+    // mod9Handle = window.open('http://g.com/demo/open.html');
+    mod9Handle = window.open('open.html');
+    var btn = document.getElementById("mod8").getElementsByTagName("button")[0];
+    btn.className = "ui-btn";
+    btn.disabled = false;
+    return false;
+}
+
+document.getElementById("mod8").onsubmit = function() {
+    mod9Handle && message.send("opener.mod8.test", this.getElementsByTagName("input")[0].value, mod9Handle);
+    return false;
+}
+
+// window.opener.postMessage
+
 message
-    .on("iframe.mod9.opened", function(data) {
+    .on("opener.mod9.opened", function(data) {
         document.getElementById("mod9").innerHTML = "Alread opened";
         document.getElementById("mod9").className = "ui-btn ui-btn-l";
-/*        checkAlive = setInterval(function() {
-            if(waitClose) return;
-            waitClose = setTimeout(function() {
-                clearInterval(checkAlive);
-                document.getElementById("mod9").innerHTML = "open a new window";
-                document.getElementById("mod9").className = "ui-btn ui-btn-l ui-btn--blue";
-            }, 500);
-        }, 200);*/
     })
-    .on("iframe.mod9.alive", function(data) {
-        clearTimeout(waitClose);
-        waitClose = null;
-    })
-    .on("iframe.mod9.test", function(data) {
+    .on("opener.mod9.test", function(data) {
         document.getElementById("mod8").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
     });
+
+// -----------CASE 5-------------
+
+message
+    .on("page.mod11.opened", function(data) {
+        document.getElementById("mod11").innerHTML = "Alread opened";
+        document.getElementById("mod11").className = "ui-btn ui-btn-l";
+    })
+    .on("page.mod11.test", function(data) {
+        document.getElementById("mod10").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+    })
+    .on("page.mod12.opened", function(data) {
+        document.getElementById("mod12").innerHTML = "Alread opened";
+        document.getElementById("mod12").className = "ui-btn ui-btn-l";
+    })
+    .on("page.mod12.test", function(data) {
+        document.getElementById("mod10").parentNode.getElementsByTagName("pre")[0].innerHTML = data;
+    });
+
+document.getElementById("mod10").onsubmit = function() {
+    message.send("page.mod10.test", this.getElementsByTagName("input")[0].value);
+    return false;
+}
+
+/*message("module.mxxxxxx.test")
+    .on(function(data) {
+        // console.log(data)
+    })
+    .send("xxxxx")
+    .send("yyyyyyyyyyyy")*/
+    // .off();
 </script>
 </html>
