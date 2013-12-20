@@ -24,10 +24,15 @@ All in one 前端通信框架.
 
 4. 用户可能已经打开了首页和几个二级页, 当二级页换肤后, 打开的页面都同时换肤
 
-### 浏览器兼容:
+### 浏览器兼容
 
 - Part-function support: IE6-11, @see: TODO
 - Full-function support: Chrome / Opera / Safari / Firefox
+
+### filesize
+
+min: 2K
+gzip: 1.3K
 
 ### TODO
 
