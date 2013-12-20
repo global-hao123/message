@@ -20,7 +20,7 @@ All in one 前端通信框架.
 
 2. 跨页通信, 如新窗口打开账号登录
 
-3. 页内模块间通信
+3. 页内模块间通信, 如头部气泡被点, 侧边栏气泡全部隐藏
 
 4. 用户可能已经打开了首页和几个二级页, 当二级页换肤后, 打开的页面都同时换肤
 
@@ -120,10 +120,10 @@ Hao123.message.send("iframe.yahoo.music-control", data)
 
 |Type| Allow Cross-domian| Two-way | Support Data-type | Description|
 |----|----|----|----|----|
-|module|× |√ | Any |页内各模块通信|
+|module|√ |√ | Any |页内各模块通信|
 |iframe|√ |√ | Any |宿主到iframe 或 iframe 之间通信|
-|open|√|× | Any |打开新窗口到原页面的单向通信|
-|page| √| × (Firefox 2-13 可以由 globalStorage 实现跨域)| `String` | 同域下多页面之间的通信|
+|open|√ (IE6-11 暂时不允许跨域)| √ IE6-7 暂时只能单向| Any |打开新窗口到原页面的单向通信|
+|page|× (较新的 webkit 可以籍由 globalStorage 实现跨域)|√| `String` | 同域下多页面之间的通信|
 
 ### More Case
 
