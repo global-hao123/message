@@ -2,6 +2,10 @@
 
 All in one 前端通信框架.
 
+### demo
+
+http://global-hao123.github.io/message/
+
 ### 支持通信类型
 
 - **module** 页内各模块通信
