@@ -2,10 +2,6 @@
 
 All in one 前端通信框架.
 
-### demo
-
-http://global-hao123.github.io/message/
-
 ### 支持通信类型
 
 - **module** 页内各模块通信
@@ -40,7 +36,7 @@ gzip: 1.3K
 
 ### TODO
 
-- IE6-7: 
+- IE6-7:
    * [opener]只能单向, 不允许跨域
    * [page]
 
@@ -119,7 +115,7 @@ Hao123.message.send("iframe.yahoo.music-control", data)
 
 ### API
 
-- `on` 
+- `on`
 
 - `send`
 
